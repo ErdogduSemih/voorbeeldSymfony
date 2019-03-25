@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit message{% endblock %}
+
+
+{% block body %}
+
+<div class="container">
+
+    {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    <div class="back">
+        <div class="div-center">
+            <div class="content">
+                <h3>Login</h3>
+                <hr/>
+                <form action="{{ path('checkroute') }}" method="post">
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" class="form-control" placeholder="Username" id="username" name="_username"
+                               value="{{ last_username }}"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" class="form-control" placeholder="Password" id="password"
+                               name="_password"/>
+
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+
+

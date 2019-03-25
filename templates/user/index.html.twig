@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello {{ controller_name }}!{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper {
+            margin: 1em auto;
+            max-width: 800px;
+            width: 95%;
+            font: 18px/1.5 sans-serif;
+        }
+
+        .example-wrapper code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+        }
+    </style>
+
+    <div class="card">
+        <div class="card-header">
+            Users overview
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">
+                <div class="row">
+                    <div class="col-6">
+                        Hier zie je een overzicht van de users
+                    </div>
+                    <div class="col-6 text-right">
+                        <a href="/user/new" class="btn btn-primary">New User</a>
+                    </div>
+                </div>
+            </h5>
+            {% if users %}
+                <table id="users" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Roles</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.userName }}</td>
+                            <td>{{ user.rolesString }}</td>
+                            <td><a href="/user/edit/{{ user.id }}" class="btn btn-primary">Edit</a></td>
+                            <td><a href="#" class="btn btn-danger delete-user" data-id="{{ user.id }}">Delete</a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <li>No users found</li>
+            {% endif %}
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/js/main.js"></script>
+{% endblock %}

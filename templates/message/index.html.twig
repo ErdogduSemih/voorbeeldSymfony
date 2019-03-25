@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+
+    <div class="card">
+        <div class="card-header">
+            Messages
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">
+                <div class="row">
+                    <div class="col-6">
+                        {% if is_granted('ROLE_MOD') %}
+                            Hallo {{ app.user.username }}! Hier zie je een overzicht van alle berichten.
+                        {% endif %}
+                        {% if is_granted('ROLE_POSTER') %}
+                            Hallo {{ app.user.username }}! Hier zie je een overzicht van je persoonlijke berichten.
+                        {% endif %}
+
+                    </div>
+                    <div class="col-3 text-right">
+                        <a href="/message/new" class="btn btn-primary">New Message</a>
+                    </div>
+                    <div class="col-3 text-right">
+                        <a href="/category/new" class="btn btn-primary">Add category</a>
+                    </div>
+                </div>
+            </h5>
+            {% if messages %}
+                <table id="messages" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Content</th>
+                        <th>Category</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for message in messages %}
+                        <tr>
+                            <td>{{ message.content }}</td>
+                            <td>{{ message.category }}</td>
+                            <td><a href="/message/edit/{{ message.id }}" class="btn btn-primary">Edit</a></td>
+                            <td><a href="#" class="btn btn-danger delete-message" data-id="{{ message.id }}">Delete</a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            {% else %}
+                <li>No messages found for user <a style="font-weight: bold">{{ app.user.UserName }}</a>.</li>
+            {% endif %}
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/js/main.js"></script>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+    <div class="row justify-content-center">
+        <div class="card col-9">
+            <div class="card-header">
+                Welcome {% if app.user %}
+                    {{ app.user.UserName }}
+                {% else %}
+                    Anonymous
+                {% endif %}
+            </div>
+            <div class="card-body">
+                {% if messages %}
+                    <table id="homepageMessageTable" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Message</th>
+                            <th>Category</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for message in messages %}
+                            <tr>
+                                <td><a href="#" class="homepage-messagetable" data-id="{{ message.id }}">{{ message.content }}</a></td>
+                                <td>{{ message.category }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="navigation">
+                        {{ knp_pagination_render(messages) }}
+                    </div>
+                {% else %}
+                    <li>No messages found.</li>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/js/main.js"></script>
+{% endblock %}

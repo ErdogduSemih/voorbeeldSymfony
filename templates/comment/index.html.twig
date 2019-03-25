@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+    <div class="row justify-content-center">
+        <div class="card col-9">
+            {% if token is defined %}
+                <div class="alert alert-success">
+                    Uw token is: {{ token }}
+                </div>
+            {% endif %}
+
+            <div class="card-header" style="font-size: x-large; font-weight: bold">
+                {{ message.content }}
+            </div>
+            <div class="card-body">
+
+                <h5 class="card-title">
+                    <div class="row form-group" >
+                        <div class="col-2">
+                            <p>Comments</p>
+                        </div>
+                        <div class="col-7 text-right">
+                            <label for="commentInput"></label>
+                            <input type="text" id="commentInput" />
+                        </div>
+                        <div class="col-3 text-right">
+                            <a href="#" id="addCommentButton" data-id="{{ message.id }}" class="btn btn-primary form-control">Add Comment</a>
+                        </div>
+                    </div>
+                </h5>
+                {% if comments %}
+                    <table id="comments" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Content</th>
+                            <th>Edit</th>
+                            <td>Delete</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for comment in comments %}
+                            <tr>
+                                <td>{{ comment.content }}</td>
+                                <td><a href="#" class="btn btn-primary edit-comment" data-id="{{ comment.token }}">Edit</a></td>
+                                <td><a href="#" class="btn btn-danger delete-comment" data-id="{{ comment.token }}">Delete</a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>No comments found. Add a new comment please!</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/js/main.js"></script>
+{% endblock %}
